@@ -1,0 +1,1341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eleganza Admin | Azeem Track Records</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+    --bg:#08070d;
+    --panel:#11101a;
+    --panel2:#171522;
+    --border:rgba(255,255,255,.09);
+    --gold:#f4c76b;
+    --gold2:#ffdf8a;
+    --purple:#8b5cf6;
+    --purple2:#6d28d9;
+    --text:#f7f5fb;
+    --muted:#aaa5b7;
+    --danger:#ef4444;
+    --success:#22c55e;
+}
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+body{
+    min-height:100vh;
+    font-family:Inter,Arial,sans-serif;
+    background:
+        radial-gradient(circle at 15% 10%,rgba(109,40,217,.20),transparent 32%),
+        radial-gradient(circle at 85% 20%,rgba(244,199,107,.10),transparent 28%),
+        radial-gradient(circle at 50% 100%,rgba(124,58,237,.12),transparent 35%),
+        var(--bg);
+    color:var(--text);
+}
+
+/* ================= LOGIN ================= */
+
+#loginScreen{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:24px;
+}
+
+.login-card{
+    width:100%;
+    max-width:430px;
+    background:rgba(17,16,26,.82);
+    border:1px solid var(--border);
+    border-radius:28px;
+    padding:38px;
+    box-shadow:
+        0 30px 80px rgba(0,0,0,.55),
+        0 0 70px rgba(109,40,217,.12);
+    backdrop-filter:blur(22px);
+    text-align:center;
+}
+
+.logo-mark{
+    width:68px;
+    height:68px;
+    margin:0 auto 20px;
+    border-radius:20px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:28px;
+    font-weight:800;
+    color:#17120a;
+    background:linear-gradient(135deg,var(--gold2),var(--gold));
+    box-shadow:0 12px 35px rgba(244,199,107,.18);
+}
+
+.brand{
+    font-family:"Playfair Display",serif;
+    font-size:30px;
+    letter-spacing:.3px;
+}
+
+.brand span{
+    color:var(--gold);
+}
+
+.subtitle{
+    color:var(--muted);
+    font-size:13px;
+    margin-top:8px;
+    margin-bottom:30px;
+}
+
+.input-group{
+    text-align:left;
+    margin-bottom:17px;
+}
+
+.input-group label{
+    display:block;
+    font-size:12px;
+    font-weight:700;
+    color:#d5d0df;
+    margin-bottom:8px;
+    letter-spacing:.3px;
+}
+
+.input{
+    width:100%;
+    border:1px solid var(--border);
+    background:#0d0c13;
+    color:white;
+    padding:14px 15px;
+    border-radius:13px;
+    outline:none;
+    font-size:14px;
+    transition:.2s;
+}
+
+.input:focus{
+    border-color:rgba(244,199,107,.65);
+    box-shadow:0 0 0 4px rgba(244,199,107,.06);
+}
+
+.login-btn,
+.primary-btn{
+    width:100%;
+    border:0;
+    cursor:pointer;
+    padding:14px 18px;
+    border-radius:13px;
+    font-weight:800;
+    color:#17120a;
+    background:linear-gradient(135deg,var(--gold2),var(--gold));
+    box-shadow:0 12px 30px rgba(244,199,107,.12);
+    transition:.2s;
+}
+
+.login-btn:hover,
+.primary-btn:hover{
+    transform:translateY(-2px);
+    box-shadow:0 16px 35px rgba(244,199,107,.18);
+}
+
+.login-error{
+    display:none;
+    margin-top:15px;
+    padding:11px;
+    border-radius:11px;
+    background:rgba(239,68,68,.09);
+    border:1px solid rgba(239,68,68,.18);
+    color:#fca5a5;
+    font-size:12px;
+}
+
+.login-note{
+    margin-top:22px;
+    font-size:11px;
+    color:#777281;
+}
+
+/* ================= APP ================= */
+
+#adminApp{
+    display:none;
+    min-height:100vh;
+}
+
+.topbar{
+    height:76px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 32px;
+    border-bottom:1px solid var(--border);
+    background:rgba(8,7,13,.76);
+    backdrop-filter:blur(18px);
+    position:sticky;
+    top:0;
+    z-index:20;
+}
+
+.top-brand{
+    display:flex;
+    align-items:center;
+    gap:13px;
+}
+
+.small-logo{
+    width:40px;
+    height:40px;
+    border-radius:12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight:900;
+    color:#17120a;
+    background:linear-gradient(135deg,var(--gold2),var(--gold));
+}
+
+.top-title{
+    font-family:"Playfair Display",serif;
+    font-size:20px;
+}
+
+.top-title small{
+    display:block;
+    font-family:Inter,sans-serif;
+    font-size:9px;
+    color:var(--muted);
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    margin-top:2px;
+}
+
+.logout-btn{
+    border:1px solid var(--border);
+    background:rgba(255,255,255,.035);
+    color:#ddd8e5;
+    border-radius:10px;
+    padding:9px 14px;
+    cursor:pointer;
+    font-size:12px;
+    font-weight:700;
+}
+
+.logout-btn:hover{
+    border-color:rgba(244,199,107,.35);
+    color:var(--gold2);
+}
+
+/* ================= LAYOUT ================= */
+
+.layout{
+    display:grid;
+    grid-template-columns:235px 1fr;
+    min-height:calc(100vh - 76px);
+}
+
+.sidebar{
+    border-right:1px solid var(--border);
+    padding:25px 16px;
+    background:rgba(10,9,15,.55);
+}
+
+.side-label{
+    color:#6f6a79;
+    font-size:9px;
+    font-weight:800;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    margin:0 12px 10px;
+}
+
+.nav-item{
+    display:flex;
+    align-items:center;
+    gap:11px;
+    padding:12px 13px;
+    margin-bottom:5px;
+    border-radius:11px;
+    color:#aaa5b7;
+    font-size:13px;
+    font-weight:600;
+    cursor:pointer;
+}
+
+.nav-item:hover,
+.nav-item.active{
+    background:linear-gradient(
+        90deg,
+        rgba(139,92,246,.16),
+        rgba(244,199,107,.05)
+    );
+    color:#fff;
+}
+
+.nav-item.active{
+    border:1px solid rgba(139,92,246,.15);
+}
+
+.nav-icon{
+    width:25px;
+    text-align:center;
+}
+
+.content{
+    padding:30px;
+    max-width:1450px;
+    width:100%;
+    margin:auto;
+}
+
+.page-heading{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    margin-bottom:26px;
+}
+
+.page-heading h1{
+    font-family:"Playfair Display",serif;
+    font-size:31px;
+}
+
+.page-heading p{
+    color:var(--muted);
+    margin-top:6px;
+    font-size:13px;
+}
+
+/* ================= STATS ================= */
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:15px;
+    margin-bottom:25px;
+}
+
+.stat{
+    background:linear-gradient(
+        145deg,
+        rgba(255,255,255,.045),
+        rgba(255,255,255,.018)
+    );
+    border:1px solid var(--border);
+    border-radius:18px;
+    padding:20px;
+    position:relative;
+    overflow:hidden;
+}
+
+.stat::after{
+    content:"";
+    position:absolute;
+    width:100px;
+    height:100px;
+    border-radius:50%;
+    right:-45px;
+    top:-45px;
+    background:rgba(139,92,246,.08);
+}
+
+.stat-label{
+    color:var(--muted);
+    font-size:11px;
+    font-weight:600;
+}
+
+.stat-value{
+    font-size:27px;
+    font-weight:800;
+    margin-top:8px;
+}
+
+.stat.gold .stat-value{
+    color:var(--gold2);
+}
+
+.stat.green .stat-value{
+    color:#86efac;
+}
+
+/* ================= CARDS ================= */
+
+.grid{
+    display:grid;
+    grid-template-columns:1.25fr .75fr;
+    gap:20px;
+}
+
+.card{
+    background:rgba(17,16,26,.75);
+    border:1px solid var(--border);
+    border-radius:21px;
+    padding:23px;
+    box-shadow:0 18px 50px rgba(0,0,0,.18);
+}
+
+.card-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:22px;
+}
+
+.card-title{
+    font-size:16px;
+    font-weight:800;
+}
+
+.card-subtitle{
+    color:var(--muted);
+    font-size:11px;
+    margin-top:4px;
+}
+
+.badge{
+    padding:7px 10px;
+    border-radius:9px;
+    font-size:10px;
+    font-weight:800;
+    color:var(--gold2);
+    background:rgba(244,199,107,.08);
+    border:1px solid rgba(244,199,107,.12);
+}
+
+/* ================= FORM ================= */
+
+.form-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px;
+}
+
+.full{
+    grid-column:1/-1;
+}
+
+.form-input,
+.form-select{
+    width:100%;
+    padding:13px 14px;
+    border-radius:12px;
+    border:1px solid var(--border);
+    background:#0d0c13;
+    color:white;
+    outline:none;
+    font-size:13px;
+}
+
+.form-input:focus,
+.form-select:focus{
+    border-color:rgba(139,92,246,.65);
+    box-shadow:0 0 0 4px rgba(139,92,246,.07);
+}
+
+.form-label{
+    display:block;
+    color:#cbc6d4;
+    font-size:11px;
+    font-weight:700;
+    margin-bottom:7px;
+}
+
+.generate-box{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.generated-id{
+    flex:1;
+    padding:13px 14px;
+    border-radius:12px;
+    border:1px solid rgba(244,199,107,.18);
+    background:rgba(244,199,107,.05);
+    color:var(--gold2);
+    font-weight:800;
+    font-size:14px;
+}
+
+.generate-btn{
+    padding:13px 15px;
+    border-radius:12px;
+    border:1px solid rgba(139,92,246,.35);
+    background:rgba(139,92,246,.12);
+    color:#d8c8ff;
+    cursor:pointer;
+    font-weight:800;
+    font-size:11px;
+    white-space:nowrap;
+}
+
+.generate-btn:hover{
+    background:rgba(139,92,246,.2);
+}
+
+.save-btn{
+    margin-top:19px;
+}
+
+/* ================= INFO ================= */
+
+.info-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:14px 0;
+    border-bottom:1px solid rgba(255,255,255,.06);
+}
+
+.info-row:last-child{
+    border-bottom:0;
+}
+
+.info-label{
+    color:#817b8d;
+    font-size:11px;
+}
+
+.info-value{
+    color:#eeeaf2;
+    font-size:12px;
+    font-weight:700;
+    text-align:right;
+}
+
+.status-dot{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+}
+
+.status-dot::before{
+    content:"";
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:#22c55e;
+    box-shadow:0 0 10px rgba(34,197,94,.55);
+}
+
+/* ================= TABLE ================= */
+
+.recent{
+    margin-top:20px;
+}
+
+.table-wrap{
+    overflow:auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:700px;
+}
+
+th{
+    color:#777181;
+    font-size:10px;
+    text-align:left;
+    padding:12px 10px;
+    border-bottom:1px solid var(--border);
+    text-transform:uppercase;
+    letter-spacing:.7px;
+}
+
+td{
+    padding:15px 10px;
+    border-bottom:1px solid rgba(255,255,255,.05);
+    color:#d8d3df;
+    font-size:12px;
+}
+
+td strong{
+    color:var(--gold2);
+}
+
+.table-status{
+    display:inline-block;
+    padding:6px 9px;
+    border-radius:8px;
+    font-size:9px;
+    font-weight:800;
+}
+
+.intransit{
+    background:rgba(139,92,246,.10);
+    color:#c4b5fd;
+}
+
+.pending{
+    background:rgba(244,199,107,.09);
+    color:var(--gold2);
+}
+
+/* ================= TOAST ================= */
+
+.toast{
+    position:fixed;
+    right:22px;
+    bottom:22px;
+    padding:14px 17px;
+    border-radius:13px;
+    background:#171522;
+    border:1px solid rgba(34,197,94,.25);
+    color:#bbf7d0;
+    box-shadow:0 20px 50px rgba(0,0,0,.4);
+    font-size:12px;
+    font-weight:700;
+    transform:translateY(130px);
+    opacity:0;
+    transition:.3s;
+    z-index:100;
+}
+
+.toast.show{
+    transform:translateY(0);
+    opacity:1;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:1000px){
+    .layout{
+        grid-template-columns:1fr;
+    }
+
+    .sidebar{
+        display:none;
+    }
+
+    .stats{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .grid{
+        grid-template-columns:1fr;
+    }
+}
+
+@media(max-width:650px){
+    .topbar{
+        padding:0 17px;
+    }
+
+    .top-title{
+        font-size:16px;
+    }
+
+    .content{
+        padding:18px;
+    }
+
+    .page-heading{
+        display:block;
+    }
+
+    .page-heading h1{
+        font-size:26px;
+    }
+
+    .stats{
+        grid-template-columns:1fr 1fr;
+        gap:10px;
+    }
+
+    .stat{
+        padding:15px;
+    }
+
+    .stat-value{
+        font-size:22px;
+    }
+
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .full{
+        grid-column:auto;
+    }
+
+    .login-card{
+        padding:28px 22px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ================= LOGIN ================= -->
+
+<section id="loginScreen">
+
+    <div class="login-card">
+
+        <div class="logo-mark">E</div>
+
+        <div class="brand">
+            Eleganza <span>Admin</span>
+        </div>
+
+        <div class="subtitle">
+            Azeem Track Records · Secure Management Portal
+        </div>
+
+        <div class="input-group">
+            <label>ADMIN USERNAME</label>
+            <input
+                id="username"
+                class="input"
+                type="text"
+                placeholder="Enter username"
+                autocomplete="username"
+            >
+        </div>
+
+        <div class="input-group">
+            <label>ADMIN PASSWORD</label>
+            <input
+                id="password"
+                class="input"
+                type="password"
+                placeholder="Enter password"
+                autocomplete="current-password"
+            >
+        </div>
+
+        <button class="login-btn" onclick="login()">
+            Sign In to Dashboard
+        </button>
+
+        <div id="loginError" class="login-error">
+            Invalid admin credentials.
+        </div>
+
+        <div class="login-note">
+            Authorized personnel only · Eleganza Enterprises
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= ADMIN APP ================= -->
+
+<section id="adminApp">
+
+    <header class="topbar">
+
+        <div class="top-brand">
+
+            <div class="small-logo">E</div>
+
+            <div class="top-title">
+                Eleganza Enterprises
+                <small>Azeem Track Records · Admin</small>
+            </div>
+
+        </div>
+
+        <button class="logout-btn" onclick="logout()">
+            Logout
+        </button>
+
+    </header>
+
+
+    <div class="layout">
+
+        <!-- SIDEBAR -->
+
+        <aside class="sidebar">
+
+            <div class="side-label">Management</div>
+
+            <div class="nav-item active">
+                <span class="nav-icon">⌂</span>
+                Dashboard
+            </div>
+
+            <div class="nav-item">
+                <span class="nav-icon">＋</span>
+                New Shipment
+            </div>
+
+            <div class="nav-item">
+                <span class="nav-icon">▣</span>
+                Shipments
+            </div>
+
+            <div class="nav-item">
+                <span class="nav-icon">◉</span>
+                Customers
+            </div>
+
+            <br>
+
+            <div class="side-label">System</div>
+
+            <div class="nav-item">
+                <span class="nav-icon">⚙</span>
+                Settings
+            </div>
+
+        </aside>
+
+
+        <!-- CONTENT -->
+
+        <main class="content">
+
+            <div class="page-heading">
+
+                <div>
+                    <h1>Operations Dashboard</h1>
+                    <p>Manage shipments, tracking IDs and customer records.</p>
+                </div>
+
+            </div>
+
+
+            <!-- STATS -->
+
+            <div class="stats">
+
+                <div class="stat gold">
+                    <div class="stat-label">TOTAL SHIPMENTS</div>
+                    <div class="stat-value" id="totalShipments">1</div>
+                </div>
+
+                <div class="stat">
+                    <div class="stat-label">IN TRANSIT</div>
+                    <div class="stat-value">1</div>
+                </div>
+
+                <div class="stat green">
+                    <div class="stat-label">DELIVERED</div>
+                    <div class="stat-value">0</div>
+                </div>
+
+                <div class="stat">
+                    <div class="stat-label">PENDING</div>
+                    <div class="stat-value">0</div>
+                </div>
+
+            </div>
+
+
+            <div class="grid">
+
+                <!-- CREATE SHIPMENT -->
+
+                <div class="card">
+
+                    <div class="card-header">
+
+                        <div>
+                            <div class="card-title">Create New Shipment</div>
+                            <div class="card-subtitle">
+                                Generate an internal AZM tracking reference.
+                            </div>
+                        </div>
+
+                        <div class="badge">NEW RECORD</div>
+
+                    </div>
+
+
+                    <div class="form-grid">
+
+                        <div>
+                            <label class="form-label">CUSTOMER NAME</label>
+                            <input
+                                id="customerName"
+                                class="form-input"
+                                placeholder="e.g. Muhammad Ali"
+                            >
+                        </div>
+
+
+                        <div>
+                            <label class="form-label">PHONE NUMBER</label>
+                            <input
+                                id="phone"
+                                class="form-input"
+                                placeholder="e.g. 03001234567"
+                            >
+                        </div>
+
+
+                        <div class="full">
+
+                            <label class="form-label">
+                                INTERNAL TRACKING ID
+                            </label>
+
+                            <div class="generate-box">
+
+                                <div
+                                    class="generated-id"
+                                    id="trackingId"
+                                >
+                                    AZM-10026
+                                </div>
+
+                                <button
+                                    class="generate-btn"
+                                    onclick="generateTrackingId()"
+                                >
+                                    Generate New
+                                </button>
+
+                            </div>
+
+                        </div>
+
+
+                        <div>
+                            <label class="form-label">DHL AWB NUMBER</label>
+                            <input
+                                id="awb"
+                                class="form-input"
+                                placeholder="Enter DHL AWB"
+                            >
+                        </div>
+
+
+                        <div>
+                            <label class="form-label">SHIPMENT TYPE</label>
+
+                            <select id="shipmentType" class="form-select">
+
+                                <option>International Express</option>
+                                <option>International Economy</option>
+                                <option>Document</option>
+                                <option>Parcel</option>
+                                <option>Commercial Shipment</option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div>
+                            <label class="form-label">ORIGIN</label>
+                            <input
+                                id="origin"
+                                class="form-input"
+                                placeholder="e.g. Lahore, Pakistan"
+                            >
+                        </div>
+
+
+                        <div>
+                            <label class="form-label">DESTINATION</label>
+                            <input
+                                id="destination"
+                                class="form-input"
+                                placeholder="e.g. London, UK"
+                            >
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        class="primary-btn save-btn"
+                        onclick="saveShipment()"
+                    >
+                        Save Shipment & Create Mapping
+                    </button>
+
+                </div>
+
+
+                <!-- SYSTEM STATUS -->
+
+                <div class="card">
+
+                    <div class="card-header">
+
+                        <div>
+                            <div class="card-title">System Status</div>
+                            <div class="card-subtitle">
+                                Connected services overview.
+                            </div>
+                        </div>
+
+                        <div class="badge">LIVE</div>
+
+                    </div>
+
+
+                    <div class="info-row">
+                        <div class="info-label">Admin Portal</div>
+                        <div class="info-value">
+                            <span class="status-dot">Online</span>
+                        </div>
+                    </div>
+
+
+                    <div class="info-row">
+                        <div class="info-label">n8n Automation</div>
+                        <div class="info-value">
+                            <span class="status-dot">Ready</span>
+                        </div>
+                    </div>
+
+
+                    <div class="info-row">
+                        <div class="info-label">Google Sheets</div>
+                        <div class="info-value">
+                            <span class="status-dot">Connected</span>
+                        </div>
+                    </div>
+
+
+                    <div class="info-row">
+                        <div class="info-label">AfterShip</div>
+                        <div class="info-value">
+                            <span class="status-dot">Connected</span>
+                        </div>
+                    </div>
+
+
+                    <div class="info-row">
+                        <div class="info-label">Tracking System</div>
+                        <div class="info-value">
+                            Azeem Track Records
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- RECENT SHIPMENTS -->
+
+            <div class="card recent">
+
+                <div class="card-header">
+
+                    <div>
+                        <div class="card-title">Recent Shipments</div>
+                        <div class="card-subtitle">
+                            Latest shipment records.
+                        </div>
+                    </div>
+
+                    <div class="badge">1 RECORD</div>
+
+                </div>
+
+
+                <div class="table-wrap">
+
+                    <table>
+
+                        <thead>
+                            <tr>
+                                <th>Tracking ID</th>
+                                <th>Customer</th>
+                                <th>DHL AWB</th>
+                                <th>Destination</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="shipmentTable">
+
+                            <tr>
+
+                                <td>
+                                    <strong>AZM-10025</strong>
+                                </td>
+
+                                <td>
+                                    Muhammad Ali
+                                </td>
+
+                                <td>
+                                    6487688303
+                                </td>
+
+                                <td>
+                                    London, UK
+                                </td>
+
+                                <td>
+                                    <span class="table-status intransit">
+                                        In Transit
+                                    </span>
+                                </td>
+
+                            </tr>
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </main>
+
+    </div>
+
+</section>
+
+
+<div id="toast" class="toast">
+    Shipment saved successfully.
+</div>
+
+
+<script>
+
+/* ==========================================
+   DEMO ADMIN LOGIN
+   ==========================================
+
+   IMPORTANT:
+   This is only a temporary frontend login.
+   We will replace this with proper authentication
+   when the backend is connected.
+*/
+
+const DEMO_USERNAME = "admin";
+const DEMO_PASSWORD = "Eleganza@123";
+
+
+function login(){
+
+    const username =
+        document.getElementById("username").value.trim();
+
+    const password =
+        document.getElementById("password").value;
+
+    const error =
+        document.getElementById("loginError");
+
+
+    if(
+        username === DEMO_USERNAME &&
+        password === DEMO_PASSWORD
+    ){
+
+        sessionStorage.setItem(
+            "azeemAdminLoggedIn",
+            "true"
+        );
+
+        document.getElementById("loginScreen").style.display =
+            "none";
+
+        document.getElementById("adminApp").style.display =
+            "block";
+
+    }else{
+
+        error.style.display = "block";
+
+    }
+
+}
+
+
+function logout(){
+
+    sessionStorage.removeItem(
+        "azeemAdminLoggedIn"
+    );
+
+    location.reload();
+
+}
+
+
+/* ==========================================
+   CHECK LOGIN
+   ========================================== */
+
+if(
+    sessionStorage.getItem("azeemAdminLoggedIn")
+    === "true"
+){
+
+    document.getElementById("loginScreen").style.display =
+        "none";
+
+    document.getElementById("adminApp").style.display =
+        "block";
+
+}
+
+
+/* ==========================================
+   GENERATE AZM TRACKING ID
+   ========================================== */
+
+function generateTrackingId(){
+
+    const randomNumber =
+        Math.floor(
+            10000 +
+            Math.random() * 89999
+        );
+
+    document.getElementById("trackingId")
+        .textContent =
+        "AZM-" + randomNumber;
+
+}
+
+
+/* ==========================================
+   SAVE SHIPMENT — DEMO
+   ========================================== */
+
+function saveShipment(){
+
+    const customer =
+        document.getElementById("customerName")
+        .value.trim();
+
+    const phone =
+        document.getElementById("phone")
+        .value.trim();
+
+    const awb =
+        document.getElementById("awb")
+        .value.trim();
+
+    const origin =
+        document.getElementById("origin")
+        .value.trim();
+
+    const destination =
+        document.getElementById("destination")
+        .value.trim();
+
+    const shipmentType =
+        document.getElementById("shipmentType")
+        .value;
+
+    const trackingId =
+        document.getElementById("trackingId")
+        .textContent;
+
+
+    if(
+        !customer ||
+        !phone ||
+        !awb ||
+        !origin ||
+        !destination
+    ){
+
+        alert(
+            "Please complete all required shipment fields."
+        );
+
+        return;
+
+    }
+
+
+    /*
+      TEMPORARY DEMO ONLY.
+
+      Later this function will send:
+
+      Tracking ID
+      Customer
+      Phone
+      DHL AWB
+      Origin
+      Destination
+      Shipment Type
+
+      → n8n
+      → Google Sheets
+
+      and create the real AZM ↔ DHL mapping.
+    */
+
+
+    const table =
+        document.getElementById("shipmentTable");
+
+
+    const row =
+        document.createElement("tr");
+
+
+    row.innerHTML = `
+
+        <td>
+            <strong>${escapeHTML(trackingId)}</strong>
+        </td>
+
+        <td>
+            ${escapeHTML(customer)}
+        </td>
+
+        <td>
+            ${escapeHTML(awb)}
+        </td>
+
+        <td>
+            ${escapeHTML(destination)}
+        </td>
+
+        <td>
+            <span class="table-status pending">
+                Processing
+            </span>
+        </td>
+
+    `;
+
+
+    table.prepend(row);
+
+
+    const total =
+        document.getElementById("totalShipments");
+
+    total.textContent =
+        Number(total.textContent) + 1;
+
+
+    showToast(
+        trackingId +
+        " created successfully."
+    );
+
+
+    generateTrackingId();
+
+    document.getElementById("customerName").value = "";
+    document.getElementById("phone").value = "";
+    document.getElementById("awb").value = "";
+    document.getElementById("origin
