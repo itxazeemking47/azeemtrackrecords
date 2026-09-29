@@ -210,19 +210,7 @@ footer{
       <div class="demo">Demo reference: <b>AZM-10025</b></div>
 
       <div class="result" id="result">
-        <div class="status">
-          <div>
-            <div style="color:#8e849a;font-size:11px;margin-bottom:5px">TRACKING REFERENCE</div>
-            <strong id="ref">AZM-10025</strong>
-          </div>
-          <span class="pill">● IN TRANSIT</span>
-        </div>
-        <div class="result-grid">
-          <div class="info"><span>Current location</span><b>Dubai, UAE</b></div>
-          <div class="info"><span>Destination</span><b>London, UK</b></div>
-          <div class="info"><span>Last update</span><b>29 Sep 2026</b></div>
-          <div class="info"><span>Shipment type</span><b>International Express</b></div>
-        </div>
+        <!-- Results will be loaded here dynamically -->
       </div>
     </div>
   </div>
@@ -281,23 +269,84 @@ footer{
 <a class="wa" href="https://wa.me/" aria-label="WhatsApp">◔</a>
 
 <script>
-function trackShipment(){
-  const input=document.getElementById('trackingInput');
-  const value=input.value.trim().toUpperCase();
-  const result=document.getElementById('result');
-  if(!value){
+const WEBHOOK_URL = "https://princerajpoot36.app.n8n.cloud/webhook/e75124db-34d3-422d-b32b-d8992b197d60";
+
+async function trackShipment() {
+  const input = document.getElementById('trackingInput');
+  const value = input.value.trim().toUpperCase();
+  const result = document.getElementById('result');
+
+  if (!value) {
     input.focus();
-    input.style.outline='2px solid rgba(242,196,94,.55)';
-    setTimeout(()=>input.style.outline='none',900);
+    input.style.outline = '2px solid rgba(242,196,94,.55)';
+    setTimeout(() => input.style.outline = 'none', 900);
     return;
   }
-  // DEMO ONLY: later this will call our n8n/backend API.
-  document.getElementById('ref').textContent=value;
-  result.style.display='block';
-  result.scrollIntoView({behavior:'smooth',block:'nearest'});
+
+  // Show loading state using your existing styles
+  result.style.display = 'block';
+  result.innerHTML = `
+    <div style="text-align:center; padding: 15px; color: var(--gold);">
+      Fetching live status from n8n...
+    </div>
+  `;
+  result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+  try {
+    const response = await fetch(WEBHOOK_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ tracking_number: value })
+    });
+
+    const data = await response.json();
+
+    if (data && data.data && data.data.tracking) {
+      const tracking = data.data.tracking;
+      const statusTag = (tracking.tag || "IN TRANSIT").replace(/([A-Z])/g, ' $1').trim().toUpperCase();
+      const carrier = (tracking.slug || "DHL").toUpperCase();
+      const awbNum = tracking.tracking_number || value;
+      
+      const lastUpdate = tracking.updated_at 
+        ? new Date(tracking.updated_at).toLocaleDateString('en-GB', { day: '2-digit', month: 'short', year: 'numeric' })
+        : "29 Sep 2026";
+      
+      const location = tracking.checkpoint_substatus_title || "In Transit";
+
+      result.innerHTML = `
+        <div class="status">
+          <div>
+            <div style="color:#8e849a;font-size:11px;margin-bottom:5px">TRACKING REFERENCE</div>
+            <strong id="ref">${value} (${awbNum})</strong>
+          </div>
+          <span class="pill">● ${statusTag}</span>
+        </div>
+        <div class="result-grid">
+          <div class="info"><span>Current location</span><b>${location}</b></div>
+          <div class="info"><span>Carrier</span><b>${carrier}</b></div>
+          <div class="info"><span>Last update</span><b>${lastUpdate}</b></div>
+          <div class="info"><span>Shipment type</span><b>International Express</b></div>
+        </div>
+      `;
+    } else {
+      result.innerHTML = `
+        <div style="color: #ff6b6b; padding: 10px; text-align: center;">
+          Shipment details nahi mili. Kripya tracking reference check karein.
+        </div>
+      `;
+    }
+  } catch (error) {
+    console.error("Tracking Error:", error);
+    result.innerHTML = `
+      <div style="color: #ff6b6b; padding: 10px; text-align: center;">
+        Server connection error. Dobara koshish karein.
+      </div>
+    `;
+  }
 }
-document.getElementById('trackingInput').addEventListener('keydown',e=>{
-  if(e.key==='Enter') trackShipment();
+
+document.getElementById('trackingInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter') trackShipment();
 });
 </script>
 </body>
