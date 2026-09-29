@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0b0613">
+<title>Azeem Track Records | Eleganza Enterprises</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#09050f;
+  --panel:#151020;
+  --panel2:#1b102d;
+  --purple:#4d1e91;
+  --purple2:#6d32c7;
+  --gold:#f2c45e;
+  --gold2:#ffd982;
+  --text:#f7f3ff;
+  --muted:#a79db8;
+  --line:rgba(255,255,255,.12);
+  --success:#35d58a;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  color:var(--text);
+  background:
+    radial-gradient(circle at 15% 20%,rgba(91,35,181,.42),transparent 34%),
+    radial-gradient(circle at 88% 58%,rgba(147,75,30,.18),transparent 30%),
+    linear-gradient(120deg,#10061d 0%,#09050f 55%,#120b16 100%);
+  font-family:Inter,Arial,sans-serif;
+  min-height:100vh;
+}
+body:before{
+  content:"";
+  position:fixed; inset:0; pointer-events:none; opacity:.16;
+  background-image:
+    linear-gradient(rgba(255,255,255,.08) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.08) 1px,transparent 1px);
+  background-size:64px 64px;
+  mask-image:linear-gradient(to bottom,black,transparent 85%);
+}
+.container{width:min(1180px,calc(100% - 40px));margin:auto}
+header{
+  position:sticky;top:0;z-index:20;
+  padding:14px 0;
+  background:rgba(8,4,14,.78);
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid var(--line);
+}
+.nav{
+  display:flex;align-items:center;justify-content:space-between;
+  min-height:58px;
+}
+.brand{display:flex;align-items:center;gap:13px}
+.brand-mark{
+  width:42px;height:42px;border:1px solid rgba(242,196,94,.65);
+  border-radius:13px;display:grid;place-items:center;
+  color:var(--gold);font-weight:800;font-size:20px;
+  background:linear-gradient(145deg,rgba(109,50,199,.35),rgba(242,196,94,.08));
+}
+.brand strong{display:block;font-size:18px;letter-spacing:.02em}
+.brand small{display:block;color:var(--gold);font-size:9px;letter-spacing:.25em;margin-top:2px}
+nav{display:flex;gap:32px}
+nav a{color:#b8aec8;text-decoration:none;font-size:14px}
+nav a:hover{color:#fff}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  border:0;border-radius:999px;padding:14px 25px;
+  font-weight:700;text-decoration:none;cursor:pointer;
+}
+.btn.gold{
+  color:#17100a;
+  background:linear-gradient(100deg,var(--gold2),#e4b64e);
+  box-shadow:0 12px 30px rgba(242,196,94,.16);
+}
+.hero{padding:92px 0 72px}
+.hero-grid{display:grid;grid-template-columns:1.02fr .98fr;gap:55px;align-items:center}
+.kicker{
+  display:flex;align-items:center;gap:12px;color:var(--gold);
+  font-size:14px;font-weight:700;margin-bottom:22px;
+}
+.kicker:before{content:"";width:22px;height:2px;background:var(--gold)}
+h1{
+  font-size:clamp(48px,6.5vw,82px);line-height:.98;
+  letter-spacing:-.055em;margin:0 0 25px;font-weight:800;
+}
+.gradient{background:linear-gradient(90deg,#fff 20%,#d8c3ff 52%,var(--gold2));-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{font-size:17px;line-height:1.75;color:var(--muted);max-width:600px}
+.company-note{
+  display:inline-flex;align-items:center;gap:9px;
+  margin-top:28px;color:#cfc4dd;font-size:13px;
+  padding:10px 15px;border:1px solid var(--line);border-radius:999px;
+  background:rgba(255,255,255,.035)
+}
+.company-note b{color:#fff}
+.track-card{
+  padding:34px;border:1px solid var(--line);border-radius:28px;
+  background:linear-gradient(145deg,rgba(44,24,70,.74),rgba(15,10,22,.82));
+  box-shadow:0 35px 90px rgba(0,0,0,.32);
+}
+.track-card h2{font-size:27px;margin:0 0 9px}
+.track-card>p{color:var(--muted);font-size:14px;line-height:1.6;margin:0 0 26px}
+.input-wrap{
+  display:flex;gap:10px;padding:7px;border:1px solid rgba(255,255,255,.14);
+  border-radius:16px;background:rgba(0,0,0,.24)
+}
+input{
+  width:100%;border:0;outline:0;background:transparent;color:white;
+  padding:13px 14px;font-size:15px;font-family:inherit
+}
+input::placeholder{color:#736a7d}
+.search-btn{min-width:126px;border:0;border-radius:11px;background:linear-gradient(100deg,var(--gold2),#dfb04a);font-weight:800;cursor:pointer}
+.demo{font-size:12px;color:#82788d;margin-top:12px}
+.demo b{color:#cbb6e9}
+.result{
+  display:none;margin-top:22px;padding:22px;border-radius:18px;
+  background:rgba(0,0,0,.2);border:1px solid rgba(53,213,138,.22)
+}
+.status{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.pill{padding:7px 11px;border-radius:999px;background:rgba(53,213,138,.12);color:var(--success);font-size:11px;font-weight:800}
+.result-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:18px}
+.info{padding:14px;border:1px solid var(--line);border-radius:13px;background:rgba(255,255,255,.025)}
+.info span{display:block;color:#81778c;font-size:11px;margin-bottom:6px}.info b{font-size:13px}
+.section{padding:80px 0}
+.section-head{margin-bottom:34px}
+.section-head .kicker{margin-bottom:14px}
+.section-head h2{font-size:clamp(36px,5vw,58px);margin:0;letter-spacing:-.045em}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.card{
+  min-height:190px;padding:28px;border-radius:22px;
+  border:1px solid var(--line);
+  background:linear-gradient(145deg,rgba(67,31,111,.46),rgba(18,12,26,.64));
+}
+.card:nth-child(4){background:linear-gradient(145deg,rgba(76,43,27,.32),rgba(18,12,26,.64))}
+.icon{font-size:25px;color:var(--gold);margin-bottom:38px}
+.card h3{font-size:17px;margin:0 0 10px}.card p{font-size:13px;line-height:1.65;color:var(--muted);margin:0}
+.process{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.step{padding:25px;border-top:1px solid var(--line)}
+.num{color:var(--gold);font-weight:800;font-size:13px;letter-spacing:.12em}
+.step h3{margin:13px 0 8px}.step p{color:var(--muted);font-size:13px;line-height:1.65}
+footer{
+  margin-top:40px;padding:48px 0 32px;border-top:1px solid var(--line);
+  background:rgba(0,0,0,.14)
+}
+.footer{display:flex;justify-content:space-between;align-items:center;gap:20px}
+.footer-brand{font-weight:800;font-size:16px}.footer-brand small{display:block;color:var(--gold);font-size:8px;letter-spacing:.22em;margin-top:3px}
+.footer p{color:#766d7f;font-size:12px;margin:0;text-align:right}
+.wa{
+  position:fixed;right:24px;bottom:22px;width:58px;height:58px;border-radius:50%;
+  display:grid;place-items:center;background:#25d366;color:#fff;text-decoration:none;
+  font-size:25px;box-shadow:0 12px 35px rgba(37,211,102,.3);z-index:30
+}
+@media(max-width:900px){
+  nav{display:none}.hero-grid{grid-template-columns:1fr;gap:35px}
+  .cards{grid-template-columns:1fr 1fr}.process{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+  .container{width:min(100% - 26px,1180px)}
+  .hero{padding:62px 0 45px}h1{font-size:52px}
+  .track-card{padding:22px;border-radius:22px}
+  .input-wrap{flex-direction:column}.search-btn{padding:14px}
+  .result-grid{grid-template-columns:1fr}.cards{grid-template-columns:1fr}
+  .footer{flex-direction:column;align-items:flex-start}.footer p{text-align:left}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="container nav">
+    <a class="brand" href="#">
+      <div class="brand-mark">AT</div>
+      <div><strong>ELE Ganza</strong><small>ENTERPRISES</small></div>
+    </a>
+    <nav>
+      <a href="#track">Track</a>
+      <a href="#service">Service</a>
+      <a href="#process">Process</a>
+      <a href="#about">About</a>
+    </nav>
+    <a class="btn gold" href="#track">Track a shipment</a>
+  </div>
+</header>
+
+<main>
+<section class="hero" id="track">
+  <div class="container hero-grid">
+    <div>
+      <div class="kicker">A DEPARTMENT OF ELE Ganza ENTERPRISES</div>
+      <h1><span class="gradient">Azeem Track</span><br>Records.</h1>
+      <p>
+        A dedicated shipment tracking department of Eleganza Enterprises.
+        Check your shipment status, latest recorded location and tracking history
+        through your company tracking reference.
+      </p>
+      <div class="company-note">Part of <b>Eleganza Enterprises</b> · Import &amp; Export</div>
+    </div>
+
+    <div class="track-card">
+      <h2>Track your shipment</h2>
+      <p>Enter the tracking reference provided by our team.</p>
+      <div class="input-wrap">
+        <input id="trackingInput" type="text" placeholder="e.g. AZM-10025" autocomplete="off">
+        <button class="search-btn" onclick="trackShipment()">Search</button>
+      </div>
+      <div class="demo">Demo reference: <b>AZM-10025</b></div>
+
+      <div class="result" id="result">
+        <div class="status">
+          <div>
+            <div style="color:#8e849a;font-size:11px;margin-bottom:5px">TRACKING REFERENCE</div>
+            <strong id="ref">AZM-10025</strong>
+          </div>
+          <span class="pill">● IN TRANSIT</span>
+        </div>
+        <div class="result-grid">
+          <div class="info"><span>Current location</span><b>Dubai, UAE</b></div>
+          <div class="info"><span>Destination</span><b>London, UK</b></div>
+          <div class="info"><span>Last update</span><b>29 Sep 2026</b></div>
+          <div class="info"><span>Shipment type</span><b>International Express</b></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="service">
+  <div class="container">
+    <div class="section-head">
+      <div class="kicker">WHY TRACK WITH US</div>
+      <h2>Built for clear<br><span class="gradient">shipment visibility.</span></h2>
+    </div>
+    <div class="cards">
+      <div class="card"><div class="icon">◷</div><h3>Live status</h3><p>See the latest recorded shipment status available to our tracking system.</p></div>
+      <div class="card"><div class="icon">✓</div><h3>Clear records</h3><p>Your company tracking reference keeps shipment information simple and easy to follow.</p></div>
+      <div class="card"><div class="icon">⌖</div><h3>Location updates</h3><p>View the latest recorded checkpoint and shipment movement history.</p></div>
+      <div class="card"><div class="icon">◇</div><h3>Company backed</h3><p>A dedicated tracking department operating under Eleganza Enterprises.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="process">
+  <div class="container">
+    <div class="section-head">
+      <div class="kicker">HOW IT WORKS</div>
+      <h2>Simple from search<br><span class="gradient">to status.</span></h2>
+    </div>
+    <div class="process">
+      <div class="step"><div class="num">01 — SEARCH</div><h3>Enter your reference</h3><p>Use the Azeem Track Records ID provided for your shipment.</p></div>
+      <div class="step"><div class="num">02 — VERIFY</div><h3>Record matched</h3><p>The system finds the shipment record linked to your tracking reference.</p></div>
+      <div class="step"><div class="num">03 — VIEW</div><h3>See the latest status</h3><p>Review current status, recorded location and available shipment history.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="about" style="padding-top:20px">
+  <div class="container">
+    <div class="card" style="min-height:auto;padding:34px">
+      <div class="kicker">ABOUT THE DEPARTMENT</div>
+      <h2 style="margin:0 0 12px;font-size:32px">Azeem Track Records</h2>
+      <p style="max-width:760px;color:var(--muted);line-height:1.8;margin:0">
+        A dedicated tracking and records department of <b style="color:#fff">Eleganza Enterprises</b>,
+        created to provide customers with a clear and professional way to follow their international shipments.
+      </p>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="container footer">
+    <div class="footer-brand">ELE GANZA<small>ENTERPRISES</small></div>
+    <p>© 2026 Eleganza Enterprises · Azeem Track Records</p>
+  </div>
+</footer>
+
+<a class="wa" href="https://wa.me/" aria-label="WhatsApp">◔</a>
+
+<script>
+function trackShipment(){
+  const input=document.getElementById('trackingInput');
+  const value=input.value.trim().toUpperCase();
+  const result=document.getElementById('result');
+  if(!value){
+    input.focus();
+    input.style.outline='2px solid rgba(242,196,94,.55)';
+    setTimeout(()=>input.style.outline='none',900);
+    return;
+  }
+  // DEMO ONLY: later this will call our n8n/backend API.
+  document.getElementById('ref').textContent=value;
+  result.style.display='block';
+  result.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+document.getElementById('trackingInput').addEventListener('keydown',e=>{
+  if(e.key==='Enter') trackShipment();
+});
+</script>
+</body>
+</html>
